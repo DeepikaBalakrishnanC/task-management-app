@@ -1,3 +1,7 @@
+const taskRoutes = require("./routes/taskRoutes");
+
+app.use("/api/tasks", taskRoutes);
+
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
