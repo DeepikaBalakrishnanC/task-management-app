@@ -9,16 +9,18 @@ dotenv.config();
 // Connect DB
 connectDB();
 
-// Initialize app FIRST
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Routes (AFTER app is created)
+// Routes
 const taskRoutes = require("./routes/taskRoutes");
+const authRoutes = require("./routes/authRoutes");
+
 app.use("/api/tasks", taskRoutes);
+app.use("/api/auth", authRoutes);
 
 // Test route
 app.get("/", (req, res) => {

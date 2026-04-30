@@ -3,16 +3,14 @@ const Task = require("../models/Task");
 // CREATE TASK
 const createTask = async (req, res) => {
   try {
-    const { title, description, dueDate } = req.body;
+    const { title, description } = req.body;
 
-    if (!title) {
-      return res.status(400).json({ message: "Title is required" });
-    }
+    const task = await Task.create({
+      title,
+      description,
+    });
 
-    const task = new Task({ title, description, dueDate });
-    const savedTask = await task.save();
-
-    res.status(201).json(savedTask);
+    res.status(201).json(task);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
