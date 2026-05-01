@@ -5,7 +5,7 @@ function TaskForm({ closeForm, refreshTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const token = localStorage.getItem("token"); // ✅ FIXED
+  const token = localStorage.getItem("token"); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
