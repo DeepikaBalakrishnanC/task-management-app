@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
 
 const getMongoUri = () => {
-  const uri = process.env.MONGO_URI || process.env.MONGODB_URI || process.env.DATABASE_URL;
+  const rawUri = process.env.MONGO_URI || process.env.MONGODB_URI || process.env.DATABASE_URL;
 
-  if (!uri) {
+  if (!rawUri) {
     throw new Error(
       "Missing MongoDB connection string. Set MONGO_URI in Render to your MongoDB URI."
     );
   }
+
+  const uri = rawUri.trim().replace(/^(MONGO_URI|MONGODB_URI|DATABASE_URL)=/, "");
 
   if (!uri.startsWith("mongodb://") && !uri.startsWith("mongodb+srv://")) {
     throw new Error(
