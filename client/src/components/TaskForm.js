@@ -1,15 +1,19 @@
 import React, { useState } from "react";
+import { addTask } from "../services/taskService";
 
-function TaskForm({ closeForm }) {
+function TaskForm({ closeForm, refreshTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
+  const token = "YOUR_TOKEN_HERE";
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log({ title, description }); // later connect API
+    await addTask({ title, description }, token);
 
-    closeForm();
+    refreshTasks(); // reload tasks
+    closeForm();    // close form
   };
 
   return (
@@ -33,8 +37,15 @@ function TaskForm({ closeForm }) {
           onChange={(e) => setDescription(e.target.value)}
         />
 
-        <button className="btn btn-success me-2">Save</button>
-        <button className="btn btn-secondary" onClick={closeForm}>
+        <button className="btn btn-success me-2">
+          Save
+        </button>
+
+        <button
+          type="button"
+          className="btn btn-secondary"
+          onClick={closeForm}
+        >
           Cancel
         </button>
       </form>

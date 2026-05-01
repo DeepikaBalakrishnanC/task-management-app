@@ -1,6 +1,6 @@
 import React from "react";
 
-function TaskItem({ task }) {
+function TaskItem({ task, onDelete }) {
   return (
     <div className="col-md-4">
       <div className="card p-3 mb-3 shadow-sm">
@@ -10,8 +10,16 @@ function TaskItem({ task }) {
         <span className="badge bg-info">{task.status}</span>
 
         <div className="mt-3 d-flex justify-content-between">
-          <button className="btn btn-sm btn-warning">Edit</button>
-          <button className="btn btn-sm btn-danger">Delete</button>
+          <button className="btn btn-sm btn-warning">
+            Edit
+          </button>
+
+          <button
+            className="btn btn-sm btn-danger"
+            onClick={() => onDelete(task._id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>
