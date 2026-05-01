@@ -5,7 +5,7 @@ function TaskForm({ closeForm, refreshTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const token = "YOUR_TOKEN_HERE";
+  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZjNkNmYxN2JhODVlMWQ0ZjFlYWVhZiIsImlhdCI6MTc3NzU5NzgyMCwiZXhwIjoxNzc4MjAyNjIwfQ.HPPiwzPqTbhgpOAgS8gX-MAEp_t4DDuKHSsli6MCaPQ";
 
   const handleSubmit = async (e) => {
     e.preventDefault();
