@@ -1,35 +1,41 @@
-import axios from "axios";
-
-const API_URL = "/api/tasks";
+import api from "./api";
 
 // GET TASKS
-export const getTasks = async (token) => {
-  const res = await axios.get(API_URL, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+export const getTasks = async () => {
+  try {
+    const res = await api.get("/api/tasks");
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to fetch tasks";
+  }
 };
 
 // ADD TASK
-export const addTask = async (taskData, token) => {
-  const res = await axios.post(API_URL, taskData, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+export const addTask = async (taskData) => {
+  try {
+    const res = await api.post("/api/tasks", taskData);
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to add task";
+  }
 };
 
 // UPDATE TASK
-export const updateTask = async (id, updatedData, token) => {
-  const res = await axios.put(`${API_URL}/${id}`, updatedData, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+export const updateTask = async (id, updatedData) => {
+  try {
+    const res = await api.put(`/api/tasks/${id}`, updatedData);
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to update task";
+  }
 };
 
 // DELETE TASK
-export const deleteTask = async (id, token) => {
-  const res = await axios.delete(`${API_URL}/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+export const deleteTask = async (id) => {
+  try {
+    const res = await api.delete(`/api/tasks/${id}`);
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Failed to delete task";
+  }
 };

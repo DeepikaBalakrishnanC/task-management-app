@@ -1,23 +1,41 @@
 import axios from "axios";
 
-const API_URL = "/api/auth";
+const BASE_URL = process.env.REACT_APP_API_URL;
+
+if (!BASE_URL) {
+  throw new Error("API URL not defined");
+}
+
+const API_URL = `${BASE_URL}/api/auth`;
 
 // REGISTER
 export const registerUser = async (userData) => {
-  const res = await axios.post(`${API_URL}/register`, userData);
-  if (res.data.token) {
-    localStorage.setItem("token", res.data.token);
+  try {
+    const res = await axios.post(`${API_URL}/register`, userData);
+
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+    }
+
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Registration failed";
   }
-  return res.data;
 };
 
 // LOGIN
 export const loginUser = async (userData) => {
-  const res = await axios.post(`${API_URL}/login`, userData);
-  if (res.data.token) {
-    localStorage.setItem("token", res.data.token);
+  try {
+    const res = await axios.post(`${API_URL}/login`, userData);
+
+    if (res.data.token) {
+      localStorage.setItem("token", res.data.token);
+    }
+
+    return res.data;
+  } catch (error) {
+    throw error.response?.data?.message || "Login failed";
   }
-  return res.data;
 };
 
 // LOGOUT
