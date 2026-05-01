@@ -5,15 +5,19 @@ function TaskForm({ closeForm, refreshTasks }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
-  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5ZjNkNmYxN2JhODVlMWQ0ZjFlYWVhZiIsImlhdCI6MTc3NzU5NzgyMCwiZXhwIjoxNzc4MjAyNjIwfQ.HPPiwzPqTbhgpOAgS8gX-MAEp_t4DDuKHSsli6MCaPQ";
+  const token = localStorage.getItem("token"); // ✅ FIXED
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addTask({ title, description }, token);
+    try {
+      await addTask({ title, description }, token);
 
-    refreshTasks(); // reload tasks
-    closeForm();    // close form
+      refreshTasks();
+      closeForm();
+    } catch (error) {
+      console.error("Error adding task:", error);
+    }
   };
 
   return (
